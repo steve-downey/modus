@@ -67,10 +67,11 @@
 
   (setq modus-themes-to-toggle
         '(modus-vivendi-tinted modus-operandi-tinted))
+
   :config
   ;; Load the theme of your choice.
-  (load-theme 'modus-vivendi-tinted :no-confim)
+  (load-theme 'modus-vivendi-tinted)
 
-  :bind ("<f5>" . modus-themes-toggle))
+  (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
 
 ;;; after-init.el ends here
