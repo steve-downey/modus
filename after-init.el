@@ -2,6 +2,7 @@
 
 (use-package modus-themes
   :ensure
+  :demand t
   :init
   ;; Add all your customizations prior to loading the themes
   (setq modus-themes-italic-constructs t
@@ -65,12 +66,22 @@
                             (bg-line-number-inactive unspecified)
                             (bg-line-number-active unspecified)))
 
+  (defvar local-theme 'modus-vivendi-tinted)
+
   (setq modus-themes-to-toggle
         '(modus-vivendi-tinted modus-operandi-tinted))
 
+  (defun local-load-theme ()
+    (message "Loading modus theme %s" local-theme)
+    (load-theme local-theme :no-confim))
+
+  (when (daemonp)
+    (add-hook 'server-after-make-frame-hook #'local-load-theme))
+
   :config
   ;; Load the theme of your choice.
-  (load-theme 'modus-vivendi-tinted)
+  (message "Processing modus config")
+  (local-load-theme)
 
   (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
 
